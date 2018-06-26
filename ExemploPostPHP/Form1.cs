@@ -35,7 +35,9 @@ namespace ExemploPostPHP
             dynamic json = new ExpandoObject();
             json.campo1 = "valor1";
             json.campo2 = "valor2";
-            
+            json.nome2 = "assad";
+            json.array = new int[1, 2, 3];
+
 
             string parametros = JsonConvert.SerializeObject(json); 
 
