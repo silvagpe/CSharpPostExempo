@@ -24,7 +24,7 @@ namespace ExemploPostPHP
 
         private void btnPost_Click(object sender, EventArgs e)
         {
-            var baseAddress = "http://localhost:8080/testephp/teste.php";
+            var baseAddress = "https://api.anotameupedido.com.br/picanhariatiton/integracao/salvarproduto";
 
             var http = (HttpWebRequest)WebRequest.Create(new Uri(baseAddress));
             http.Accept = "application/json";
@@ -32,14 +32,35 @@ namespace ExemploPostPHP
             http.Method = "POST";
 
 
+            //Criar a lista de produtos
+            List<ExpandoObject> dados = new List<ExpandoObject>();
+            dynamic produto = new ExpandoObject();
+            produto.cod_sinc = 1469;
+            produto.nome = "BROCOLI";
+            produto.descricao = "";
+            produto.preco_uni = "10.5";
+            produto.desconto = "0";
+            produto.cod_sinc_subgrupo = "8";
+            produto.ativo = true;
+
+
+            dynamic unidade = new ExpandoObject();
+            unidade.cod_sinc = "UN";
+            unidade.sigla = "UN";
+            unidade.descricao = "UN";
+
+            //Adiciona a unidade ao produto
+            produto.unidade = unidade;
+            
+            //Adiciona o produto a lista
+            dados.Add(produto);
+
             dynamic json = new ExpandoObject();
-            json.campo1 = "valor1";
-            json.campo2 = "valor2";
-            json.nome2 = "assad";
-            json.array = new int[1, 2, 3];
-
-
-            string parametros = JsonConvert.SerializeObject(json); 
+            json.chave_api = "<MINHA CHAVE>";
+            json.dados = dados.ToArray();
+            
+            //Converte para o objeto para string
+            string parametros = JsonConvert.SerializeObject(json);
 
 
 
